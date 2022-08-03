@@ -1,0 +1,49 @@
+﻿<Window
+    x:Class="QuanLySinhVien.View.DanhSachTaiKhoan"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QuanLySinhVien.View"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="DanhSachTaiKhoan"
+    Width="1257.05"
+    Height="739.083"
+    Background="Transparent"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Border Background="#404040" MouseDown="Border_MouseDown">
+        <Grid>
+            <Label
+                Width="500"
+                Height="80"
+                Margin="380,22,377,0"
+                VerticalAlignment="Top"
+                Content="DANH SÁCH ĐĂNG NHẬP"
+                FontFamily="SVN-Avo"
+                FontSize="40"
+                FontWeight="Bold"
+                Foreground="White" />
+            <DataGrid
+                x:Name="dgvDanhSachTaiKhoan"
+                Height="540"
+                Margin="0,102,0,0"
+                VerticalAlignment="Top"
+                FontFamily="SVN-Avo"
+                FontSize="20" />
+            <Button
+                x:Name="btnThoat"
+                Height="Auto"
+                Margin="1040,658,10,18"
+                Background="Transparent"
+                BorderBrush="White"
+                Click="btnThoat_Click"
+                Content="Thoát"
+                FontFamily="SVN-Avo"
+                FontSize="20"
+                Foreground="White" />
+        </Grid>
+
+    </Border>
+</Window>

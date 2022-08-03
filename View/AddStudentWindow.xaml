@@ -1,0 +1,455 @@
+﻿<Window
+    x:Class="QuanLySinhVien.View.AddStudentWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:QuanLySinhVien"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="frmSuaNhanVien"
+    Width="800"
+    Height="500         "
+    Background="Transparent"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterScreen"
+    WindowStyle="None"
+    mc:Ignorable="d">
+    <Window.Resources>
+        <Style x:Key="SingleLineTextBox" TargetType="TextBox">
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="CaretBrush" Value="Black" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border
+                            Background="White"
+                            BorderBrush="Gray"
+                            BorderThickness="1"
+                            SnapsToDevicePixels="True">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                HorizontalScrollBarVisibility="Hidden"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                VerticalScrollBarVisibility="Disabled" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="TextBox.Static.Border" Color="#FFABAdB3" />
+        <SolidColorBrush x:Key="TextBox.MouseOver.Border" Color="#FF7EB4EA" />
+        <SolidColorBrush x:Key="TextBox.Focus.Border" Color="#FF569DE5" />
+        <Style x:Key="TextBoxStyle1" TargetType="{x:Type TextBox}">
+            <Setter Property="Background" Value="{DynamicResource {x:Static SystemColors.WindowBrushKey}}" />
+            <Setter Property="BorderBrush" Value="{StaticResource TextBox.Static.Border}" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="KeyboardNavigation.TabNavigation" Value="None" />
+            <Setter Property="HorizontalContentAlignment" Value="Left" />
+            <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+            <Setter Property="AllowDrop" Value="true" />
+            <Setter Property="ScrollViewer.PanningMode" Value="VerticalFirst" />
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="10"
+                            SnapsToDevicePixels="True">
+                            <ScrollViewer
+                                x:Name="PART_ContentHost"
+                                Focusable="false"
+                                HorizontalScrollBarVisibility="Hidden"
+                                VerticalScrollBarVisibility="Hidden" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Opacity" Value="0.56" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.MouseOver.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource TextBox.Focus.Border}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <MultiTrigger>
+                    <MultiTrigger.Conditions>
+                        <Condition Property="IsInactiveSelectionHighlightEnabled" Value="true" />
+                        <Condition Property="IsSelectionActive" Value="false" />
+                    </MultiTrigger.Conditions>
+                    <Setter Property="SelectionBrush" Value="{DynamicResource {x:Static SystemColors.InactiveSelectionHighlightBrushKey}}" />
+                </MultiTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="FocusVisual">
+            <Setter Property="Control.Template">
+                <Setter.Value>
+                    <ControlTemplate>
+                        <Rectangle
+                            Margin="2"
+                            SnapsToDevicePixels="true"
+                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"
+                            StrokeDashArray="1 2"
+                            StrokeThickness="1" />
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <SolidColorBrush x:Key="Button.Static.Background" Color="#FFDDDDDD" />
+        <SolidColorBrush x:Key="Button.Static.Border" Color="#FF707070" />
+        <SolidColorBrush x:Key="Button.MouseOver.Background" Color="#FFBEE6FD" />
+        <SolidColorBrush x:Key="Button.MouseOver.Border" Color="#FF3C7FB1" />
+        <SolidColorBrush x:Key="Button.Pressed.Background" Color="#FFC4E5F6" />
+        <SolidColorBrush x:Key="Button.Pressed.Border" Color="#FF2C628B" />
+        <SolidColorBrush x:Key="Button.Disabled.Background" Color="#FFF4F4F4" />
+        <SolidColorBrush x:Key="Button.Disabled.Border" Color="#FFADB2B5" />
+        <SolidColorBrush x:Key="Button.Disabled.Foreground" Color="#FF838383" />
+        <Style x:Key="ButtonStyle1" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="30"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                Margin="{TemplateBinding Padding}"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.MouseOver.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.MouseOver.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Pressed.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource Button.Disabled.Foreground}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}">
+            <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" />
+            <Setter Property="Background" Value="{StaticResource Button.Static.Background}" />
+            <Setter Property="BorderBrush" Value="{StaticResource Button.Static.Border}" />
+            <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Padding" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border
+                            x:Name="border"
+                            Margin="-10,407,68,-377"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="16"
+                            SnapsToDevicePixels="true">
+                            <ContentPresenter
+                                x:Name="contentPresenter"
+                                Width="28"
+                                Margin="41,5,33,7"
+                                HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                Focusable="False"
+                                RecognizesAccessKey="True"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsDefaulted" Value="true">
+                                <Setter TargetName="border" Property="BorderBrush" Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.MouseOver.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.MouseOver.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Pressed.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Pressed.Border}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter TargetName="border" Property="Background" Value="{StaticResource Button.Disabled.Background}" />
+                                <Setter TargetName="border" Property="BorderBrush" Value="{StaticResource Button.Disabled.Border}" />
+                                <Setter TargetName="contentPresenter" Property="TextElement.Foreground" Value="{StaticResource Button.Disabled.Foreground}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Border Background="Transparent" CornerRadius="30">
+        <Grid Margin="0,-6,0,6" MouseDown="Grid_MouseDown">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="32*" />
+                <RowDefinition Height="193*" />
+            </Grid.RowDefinitions>
+            <Border
+                Grid.Row="0"
+                Background="#dadee1"
+                CornerRadius="10 10 0 0" />
+            <TextBlock
+                Width="265"
+                Margin="272,22,263,19"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                FontFamily="SVN-Avo"
+                FontSize="25"
+                FontWeight="Bold"
+                Foreground="#272537">
+                THÊM MỚI SINH VIÊN
+            </TextBlock>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="216" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <Border
+                    Grid.Column="0"
+                    Margin="0,0,0,-6"
+                    Background="#272537"
+                    CornerRadius="0 0 0 10" />
+                <Border
+                    Grid.Column="1"
+                    Height="435"
+                    Margin="0,0,0,-6"
+                    VerticalAlignment="Top"
+                    Background="#ffffff"
+                    CornerRadius="0 0 10 0" />
+                <Image Margin="10,56,10,117" Source="/assets/user.png" />
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="79,32,397,372"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537">
+                    Mã sinh viên
+                </TextBlock>
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="79,72,430,331"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537">
+                    Họ và tên
+                </TextBlock>
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="79,112,397,291"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537">
+                    CMND/CCCD
+                </TextBlock>
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="79,151,419,252"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537">
+                    Tôn giáo
+                </TextBlock>
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="79,191,397,212"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537">
+                    Số điện thoại
+                </TextBlock>
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="79,232,430,171"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537">
+                    Giới tính
+                </TextBlock>
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="79,275,430,128"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537">
+                    Số phòng
+                </TextBlock>
+                <TextBlock
+                    Width="110"
+                    Margin="58,14,48,378"
+                    HorizontalAlignment="Center"
+                    FontFamily="Segoe UI Black"
+                    FontSize="20"
+                    Foreground="White"><Run Text="SINH VIÊN" /></TextBlock>
+                <TextBox
+                    x:Name="txtMaNhanVien"
+                    Grid.Column="1"
+                    Margin="196,22,67,378"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    BorderThickness="1"
+                    FontFamily="SVN-Avo"
+                    Foreground="#272537"
+                    Style="{DynamicResource TextBoxStyle1}"
+                    TextWrapping="NoWrap"
+                    ToolTip="Mã sinh viên phải có 8 chữ số" />
+                <TextBox
+                    x:Name="txtHoTen"
+                    Grid.Column="1"
+                    Margin="196,63,67,337"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    BorderThickness="1"
+                    FontFamily="SVN-Avo"
+                    Foreground="#272537"
+                    Style="{DynamicResource TextBoxStyle1}"
+                    TextWrapping="NoWrap" />
+                <TextBox
+                    x:Name="txtCMND"
+                    Grid.Column="1"
+                    Margin="196,102,67,297"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    BorderThickness="1"
+                    FontFamily="SVN-Avo"
+                    Foreground="#272537"
+                    Style="{DynamicResource TextBoxStyle1}"
+                    TextWrapping="NoWrap" />
+                <TextBox
+                    x:Name="txtTonGiao"
+                    Grid.Column="1"
+                    Margin="196,142,67,258"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    BorderThickness="1"
+                    FontFamily="SVN-Avo"
+                    Foreground="#272537"
+                    Style="{DynamicResource TextBoxStyle1}"
+                    TextWrapping="NoWrap" />
+                <TextBox
+                    x:Name="txtSDT"
+                    Grid.Column="1"
+                    Margin="196,183,67,218"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    BorderThickness="1"
+                    FontFamily="SVN-Avo"
+                    Foreground="#272537"
+                    Style="{DynamicResource TextBoxStyle1}"
+                    TextWrapping="NoWrap" />
+                <TextBox
+                    x:Name="txtGioiTinh"
+                    Grid.Column="1"
+                    Margin="196,223,67,177"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    BorderThickness="1"
+                    FontFamily="SVN-Avo"
+                    Foreground="#272537"
+                    Style="{DynamicResource TextBoxStyle1}"
+                    TextWrapping="NoWrap" />
+                <ComboBox
+                    x:Name="cbbPhongTrong"
+                    Grid.Column="1"
+                    Height="38"
+                    Margin="197,257,68,134"
+                    FontFamily="SVN-Avo"
+                    FontSize="17" />
+                <Button
+                    Grid.Column="1"
+                    Height="Auto"
+                    Margin="408,392,68,8"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    Click="Button_Click"
+                    Content="Lưu"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537" />
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="79,315,430,89"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537"><Run Text="Quốc Tịch" /></TextBlock>
+                <TextBox
+                    x:Name="txtQuocTich"
+                    Grid.Column="1"
+                    Margin="196,308,67,95"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    BorderThickness="1"
+                    FontFamily="SVN-Avo"
+                    Foreground="#272537"
+                    Style="{DynamicResource TextBoxStyle1}"
+                    TextWrapping="NoWrap" />
+                <Button
+                    x:Name="btnHuy"
+                    Grid.Column="1"
+                    Height="Auto"
+                    Margin="283,392,193,8"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    Click="btnHuy_Click"
+                    Content="Hủy"
+                    FontFamily="SVN-Avo"
+                    Foreground="#272537" />
+                <TextBlock
+                    Grid.Column="1"
+                    Margin="79,356,430,47"
+                    FontFamily="SVN-Avo"
+                    FontSize="15"
+                    Foreground="#272537"><Run Text="Năm học                                                                                                                                " /></TextBlock>
+                <TextBox
+                    x:Name="txtNamHoc"
+                    Grid.Column="1"
+                    Margin="196,350,67,53"
+                    Background="Transparent"
+                    BorderBrush="#272537"
+                    BorderThickness="1"
+                    FontFamily="SVN-Avo"
+                    Foreground="#272537"
+                    Style="{DynamicResource TextBoxStyle1}"
+                    TextWrapping="NoWrap" />
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>
